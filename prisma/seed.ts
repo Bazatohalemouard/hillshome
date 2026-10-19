@@ -73,6 +73,16 @@ const categories = [
       { slug: "nature-wildlife-tours", name: "Nature & Wildlife Tours", description: "Nature outings and wildlife experiences." },
       { slug: "custom-group-tours", name: "Custom & Group Tours", description: "Tailor-made tours for groups and organisations." },
     ] },
+  { slug: "mechanics-drivers", name: "Mechanics and car Drivers", kind: RequestKind.QUOTATION, sortOrder: 7,
+    shortDescription: "Vehicle mechanics and professional driver services.",
+    description: "Vehicle repair, servicing and professional driver services for individuals and organisations.",
+    services: [
+      { slug: "vehicle-mechanics", name: "Vehicle mechanics & repair" },
+      { slug: "vehicle-servicing", name: "Vehicle servicing & maintenance" },
+      { slug: "car-hire-with-driver", name: "Car hire with driver" },
+      { slug: "professional-driver-services", name: "Professional driver services" },
+      { slug: "fleet-maintenance", name: "Fleet maintenance" },
+    ] },
 ] as const;
 
 async function main() {

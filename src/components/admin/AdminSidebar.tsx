@@ -28,6 +28,7 @@ function Icon({ name, className = "h-5 w-5" }: { name: string; className?: strin
     case "close": return (<svg {...common}><path d="M6 6l12 12M18 6L6 18" /></svg>);
     case "collapse": return (<svg {...common}><path d="M14 6l-6 6 6 6" /></svg>);
     case "expand": return (<svg {...common}><path d="M10 6l6 6-6 6" /></svg>);
+    case "logout": return (<svg {...common}><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /><path d="M16 17l5-5-5-5M21 12H9" /></svg>);
     default: return (<svg {...common}><circle cx="12" cy="12" r="8" /></svg>);
   }
 }
@@ -50,7 +51,7 @@ export function AdminSidebar({ links, userName, userRole }: {
   }, [mobileOpen]);
 
   const nav = (onNavigate?: () => void, showLabels = true) => (
-    <nav aria-label="Admin" className="mt-6 flex flex-col gap-1">
+    <nav aria-label="Admin" className="flex flex-col gap-1">
       {links.map((l) => {
         const active = pathname === l.href || (l.href !== "/admin" && pathname.startsWith(l.href + "/"));
         return (
@@ -107,7 +108,7 @@ export function AdminSidebar({ links, userName, userRole }: {
       )}
 
       {/* Desktop sidebar */}
-      <aside className={`hidden min-h-screen flex-col bg-navy-950 p-5 text-white transition-all md:flex ${collapsed ? "w-[76px]" : "w-[220px]"}`}>
+      <aside className={`sticky top-0 hidden h-screen flex-col bg-navy-950 p-5 text-white transition-all md:flex ${collapsed ? "w-[76px]" : "w-[220px]"}`}>
         <div className={`flex gap-2 ${collapsed ? "flex-col items-center" : "items-center justify-between"}`}>
           {collapsed ? <Logo size="h-10 w-10" /> : (
             <span className="flex items-center gap-2">
@@ -123,8 +124,8 @@ export function AdminSidebar({ links, userName, userRole }: {
           </button>
         </div>
         {!collapsed && <p className="mt-1 text-xs text-white/60">{userName} · {userRole}</p>}
-        <div className="flex-1">{nav(undefined, !collapsed)}</div>
-        <LogoutButton />
+        <div className="mt-6 min-h-0 flex-1 overflow-y-auto">{nav(undefined, !collapsed)}</div>
+        <LogoutButton collapsed={collapsed} />
       </aside>
     </>
   );

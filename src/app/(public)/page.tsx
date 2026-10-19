@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { db } from "@/lib/db";
 import { listCategories } from "@/server/services";
+import HeroSlideshow from "@/components/home/HeroSlideshow";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Home" };
@@ -31,22 +32,8 @@ export default async function Home() {
 
   return (
     <>
-      {/* 1. Hero */}
-      <section className="bg-navy-950 py-20 text-white">
-        <div className="container-x">
-          <p className="text-sm uppercase tracking-widest text-gold-500">{companyName}</p>
-          <h1 className="mt-3 max-w-3xl font-display text-3xl font-semibold text-white sm:text-5xl">
-            Transport • Construction • IT • Multimedia • Cleaning • Tourism
-          </h1>
-          <p className="mt-4 max-w-2xl text-white/80">
-            One company, many services. Tell us what you need and our team will review your request and get back to you with a clear quotation.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/services" className="btn-gold">Explore Services</Link>
-            <Link href="/request" className="btn-outline border-white text-white hover:bg-white/10">Request a Quote</Link>
-          </div>
-        </div>
-      </section>
+      {/* 1. Hero slideshow: background1,2,3,6,7,8,9,10 */}
+      <HeroSlideshow companyName={companyName} />
 
       {/* 2. Company introduction */}
       <section className="container-x py-14">
