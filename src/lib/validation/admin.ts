@@ -33,6 +33,7 @@ export const tourSchema = z.object({
     .transform((v) => (v === "" || v === undefined ? null : v)),
   currency: z.string().trim().length(3).default("USD"),
   mainImage: z.string().trim().max(500).optional().nullable().transform((v) => v || null),
+  mainVideo: z.string().trim().max(500).optional().nullable().transform((v) => v || null),
   includedText: z.string().max(5000).optional().transform(lines),
   excludedText: z.string().max(5000).optional().transform(lines),
   requirementsText: z.string().max(5000).optional().transform(lines),

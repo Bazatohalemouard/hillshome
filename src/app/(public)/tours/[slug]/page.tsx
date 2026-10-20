@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getTour } from "@/server/tours";
 import { BackButton } from "@/components/BackButton";
+import { TourImage, TourVideo } from "@/components/tours/TourMedia";
 
 export const dynamic = "force-dynamic";
 type P = { params: Promise<{ slug: string }> };
@@ -26,6 +27,12 @@ export default async function TourDetail({ params }: P) {
       <BackButton fallback="/tours" label="All tours" />
       <h1 className="mt-6 text-3xl font-semibold sm:text-4xl">{t.name}</h1>
       <p className="mt-2 text-ink/70">{t.destination} · {t.durationDays} day{t.durationDays > 1 ? "s" : ""}</p>
+      {t.mainImage && (
+        <span className="relative mt-6 block aspect-[16/9] w-full overflow-hidden rounded border border-navy-900/10">
+          <TourImage src={t.mainImage} alt={t.name} priority sizes="(max-width: 768px) 100vw, 768px" />
+        </span>
+      )}
+      {t.mainVideo && <TourVideo url={t.mainVideo} />}
       <p className="mt-2 text-lg font-semibold">{t.price ? `${t.currency} ${t.price}` : "Price on request"}</p>
       <p className="mt-6 whitespace-pre-line">{t.description}</p>
       <div className="mt-8 grid gap-8 sm:grid-cols-3">

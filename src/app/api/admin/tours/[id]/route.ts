@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { requirePermission, assertSameOrigin, HttpError } from "@/lib/auth/rbac";
 import { tourSchema } from "@/lib/validation/admin";
+import { tourFieldsFrom, saveTourImage } from "@/server/tours/media";
 import { db } from "@/lib/db";
 import { handleError } from "@/lib/http";
 
@@ -8,10 +9,12 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
   try {
     assertSameOrigin(req);
     await requirePermission("tours:manage");
-    const parsed = tourSchema.partial().safeParse(await req.json().catch(() => null));
+    const form = await req.formData();
+    const parsed = tourSchema.partial().safeParse(tourFieldsFrom(form));
     if (!parsed.success) throw new HttpError(400, "Invalid tour details.");
     const { id } = await params;
     const d = parsed.data;
+    const uploaded = await saveTourImage(form);
     const tour = await db.tour.update({
       where: { id },
       data: {
@@ -22,7 +25,9 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
         ...(d.description !== undefined ? { description: d.description } : {}),
         ...(d.price !== undefined ? { price: d.price } : {}),
         ...(d.currency !== undefined ? { currency: d.currency } : {}),
-        ...(d.mainImage !== undefined ? { mainImage: d.mainImage } : {}),
+        // A freshly uploaded image wins; otherwise keep the existing URL field value.
+        ...(uploaded ? { mainImage: uploaded } : d.mainImage !== undefined ? { mainImage: d.mainImage } : {}),
+        ...(d.mainVideo !== undefined ? { mainVideo: d.mainVideo } : {}),
         ...(d.includedText !== undefined ? { included: d.includedText } : {}),
         ...(d.excludedText !== undefined ? { excluded: d.excludedText } : {}),
         ...(d.requirementsText !== undefined ? { requirements: d.requirementsText } : {}),

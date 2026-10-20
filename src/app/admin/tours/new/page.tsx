@@ -16,7 +16,7 @@ export default async function NewTour() {
       <h1 className="mt-4 text-3xl font-semibold">Add tour</h1>
       <TourForm method="POST" action="/api/admin/tours" initial={{
         name: "", destination: "", durationDays: 1, shortDescription: "", description: "",
-        price: "", currency: "USD", mainImage: "", included: "", excluded: "", requirements: "",
+        price: "", currency: "USD", mainImage: "", mainVideo: "", included: "", excluded: "", requirements: "",
         available: true, published: false, archived: false,
       }} />
     </div>

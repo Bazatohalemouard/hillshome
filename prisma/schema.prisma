@@ -172,6 +172,8 @@ model Tour {
   price            Decimal?         @db.Decimal(12, 2)
   currency         String           @default("USD")
   mainImage        String?
+  /// Optional video link describing the tour (YouTube, Vimeo or direct mp4)
+  mainVideo        String?
   included         String[]
   excluded         String[]
   requirements     String[]

@@ -22,6 +22,7 @@ export default async function EditTour({ params }: { params: Promise<{ id: strin
         name: t.name, destination: t.destination, durationDays: t.durationDays,
         shortDescription: t.shortDescription, description: t.description,
         price: t.price ? String(t.price) : "", currency: t.currency, mainImage: t.mainImage ?? "",
+        mainVideo: t.mainVideo ?? "",
         included: t.included.join("\n"), excluded: t.excluded.join("\n"), requirements: t.requirements.join("\n"),
         available: t.available, published: t.published, archived: !!t.archivedAt,
       }} />

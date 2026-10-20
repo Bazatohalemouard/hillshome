@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { listTours } from "@/server/tours";
+import { TourImage } from "@/components/tours/TourMedia";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Tours" };
@@ -22,6 +23,11 @@ export default async function Tours({ searchParams }: { searchParams: Promise<{ 
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {tours.map((t) => (
             <article key={t.id} className="bg-white p-6">
+              {t.mainImage && (
+                <span className="relative mb-4 block aspect-[16/9] w-full overflow-hidden rounded border border-navy-900/10">
+                  <TourImage src={t.mainImage} alt={t.name} sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
+                </span>
+              )}
               <h2 className="text-xl font-semibold">{t.name}</h2>
               <p className="mt-1 text-sm text-ink/70">{t.destination} · {t.durationDays} day{t.durationDays > 1 ? "s" : ""}</p>
               <p className="mt-3 text-sm">{t.shortDescription}</p>
