@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth/session";
 import { can } from "@/lib/auth/rbac";
+import { TourDeleteButton } from "@/components/admin/TourDeleteButton";
 
 export const dynamic = "force-dynamic";
 
@@ -29,7 +30,12 @@ export default async function ToursAdmin() {
                   <td className="p-3">{t.durationDays}</td>
                   <td className="p-3">{t.price ? `${t.currency} ${t.price}` : "On request"}</td>
                   <td className="p-3">{t.archivedAt ? "Archived" : t.published ? "Published" : "Draft"}{!t.available && " · unavailable"}</td>
-                  <td className="p-3"><Link href={`/admin/tours/${t.id}`} className="underline">Edit</Link></td>
+                  <td className="p-3">
+                    <div className="flex items-center gap-3">
+                      <Link href={`/admin/tours/${t.id}`} className="underline">Edit</Link>
+                      <TourDeleteButton id={t.id} name={t.name} />
+                    </div>
+                  </td>
                 </tr>
               ))}
             </tbody>

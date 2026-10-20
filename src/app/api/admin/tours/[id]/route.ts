@@ -47,3 +47,20 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
     return NextResponse.json(tour);
   } catch (e) { return handleError(e); }
 }
+
+export async function DELETE(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  try {
+    assertSameOrigin(req);
+    await requirePermission("tours:manage");
+    const { id } = await params;
+    const tour = await db.tour.findUnique({ where: { id }, select: { mainImage: true } });
+    if (!tour) throw new HttpError(404, "Tour not found.");
+    // Keep past requests but unlink them from the deleted tour.
+    await db.serviceRequest.updateMany({ where: { tourId: id }, data: { tourId: null } });
+    // TourImage rows cascade-delete with the tour.
+    await db.tour.delete({ where: { id } });
+    // Remove the stored image file too (local disk or Blob). Never fails the request.
+    await removeStoredImage(tour.mainImage);
+    return NextResponse.json({ ok: true });
+  } catch (e) { return handleError(e); }
+}
