@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
 /** Converts a YouTube/Vimeo link to an embeddable URL, or null for other links. */
 function embedUrl(url: string): string | null {
@@ -30,15 +31,30 @@ export function TourVideo({ url }: { url: string }) {
 }
 
 /**
- * Renders a tour image. Uses a plain <img> because the URL may be an uploaded
- * file, a Blob link or any external host — next/image would reject unknown hosts.
- * If the URL fails to load (or isn't an image) the box hides itself gracefully.
+ * Renders a tour image the same way the gallery/projects page does:
+ * next/image with `fill` inside a relative, aspect-ratio box.
+ *
+ * Uploaded files (/api/uploads/…) and Blob URLs are optimizable by next/image.
+ * Any other external host is rendered with a plain <img> instead, because
+ * next/image throws for hosts that are not in `remotePatterns`.
+ *
+ * If the image fails to load, the whole frame is removed so a bad or missing
+ * URL never shows a broken-image icon.
  */
-export function TourImage({ src, alt, className = "h-full w-full object-cover" }: {
-  src: string; alt: string; className?: string;
+export function TourImage({ src, alt, sizes = "100vw", className = "object-cover" }: {
+  src: string; alt: string; sizes?: string; className?: string;
 }) {
   const [failed, setFailed] = useState(false);
   if (failed) return null;
+
+  const safe = src.startsWith("/api/uploads/") || src.includes("blob.vercel-storage.com");
+  if (safe) {
+    return (
+      <Image src={src} alt={alt} fill sizes={sizes} className={className}
+        onError={() => setFailed(true)} />
+    );
+  }
   // eslint-disable-next-line @next/next/no-img-element
-  return <img src={src} alt={alt} loading="lazy" onError={() => setFailed(true)} className={className} />;
+  return <img src={src} alt={alt} loading="lazy" className={`h-full w-full ${className}`}
+    onError={() => setFailed(true)} />;
 }

@@ -25,7 +25,8 @@ export default async function Tours({ searchParams }: { searchParams: Promise<{ 
             <article key={t.id} className="bg-white p-6">
               {t.mainImage && (
                 <span className="relative mb-4 block aspect-[16/9] w-full overflow-hidden rounded border border-navy-900/10">
-                  <TourImage src={t.mainImage} alt={t.name} />
+                  <TourImage src={t.mainImage} alt={t.name}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
                 </span>
               )}
               <h2 className="text-xl font-semibold">{t.name}</h2>
