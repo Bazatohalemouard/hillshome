@@ -29,7 +29,7 @@ export default async function TourDetail({ params }: P) {
       <p className="mt-2 text-ink/70">{t.destination} · {t.durationDays} day{t.durationDays > 1 ? "s" : ""}</p>
       {t.mainImage && (
         <span className="relative mt-6 block aspect-[16/9] w-full overflow-hidden rounded border border-navy-900/10">
-          <TourImage src={t.mainImage} alt={t.name} priority sizes="(max-width: 768px) 100vw, 768px" />
+          <TourImage src={t.mainImage} alt={t.name} />
         </span>
       )}
       {t.mainVideo && <TourVideo url={t.mainVideo} />}
