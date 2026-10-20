@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { requirePermission, assertSameOrigin, HttpError } from "@/lib/auth/rbac";
 import { tourSchema } from "@/lib/validation/admin";
-import { tourFieldsFrom, saveTourImage } from "@/server/tours/media";
+import { tourFieldsFrom, saveTourImage, removeStoredImage } from "@/server/tours/media";
 import { db } from "@/lib/db";
 import { handleError } from "@/lib/http";
 
@@ -15,6 +15,11 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
     const { id } = await params;
     const d = parsed.data;
     const uploaded = await saveTourImage(form);
+    // New upload wins; otherwise use the form value (null clears it); else leave unchanged.
+    const nextImage = uploaded ?? (d.mainImage !== undefined ? d.mainImage : undefined);
+    const old = nextImage !== undefined
+      ? await db.tour.findUnique({ where: { id }, select: { mainImage: true } })
+      : null;
     const tour = await db.tour.update({
       where: { id },
       data: {
@@ -25,8 +30,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
         ...(d.description !== undefined ? { description: d.description } : {}),
         ...(d.price !== undefined ? { price: d.price } : {}),
         ...(d.currency !== undefined ? { currency: d.currency } : {}),
-        // A freshly uploaded image wins; otherwise keep the existing URL field value.
-        ...(uploaded ? { mainImage: uploaded } : d.mainImage !== undefined ? { mainImage: d.mainImage } : {}),
+        ...(nextImage !== undefined ? { mainImage: nextImage } : {}),
         ...(d.mainVideo !== undefined ? { mainVideo: d.mainVideo } : {}),
         ...(d.includedText !== undefined ? { included: d.includedText } : {}),
         ...(d.excludedText !== undefined ? { excluded: d.excludedText } : {}),
@@ -36,6 +40,10 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
         ...(d.archived !== undefined ? { archivedAt: d.archived ? new Date() : null } : {}),
       },
     });
+    // When the image is cleared or replaced, drop the old stored file too.
+    if (old?.mainImage && old.mainImage !== nextImage) {
+      await removeStoredImage(old.mainImage);
+    }
     return NextResponse.json(tour);
   } catch (e) { return handleError(e); }
 }

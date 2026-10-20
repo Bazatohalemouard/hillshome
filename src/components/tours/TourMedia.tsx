@@ -50,7 +50,7 @@ export function TourImage({ src, alt, sizes = "100vw", className = "object-cover
   const safe = src.startsWith("/api/uploads/") || src.includes("blob.vercel-storage.com");
   if (safe) {
     return (
-      <Image src={src} alt={alt} fill sizes={sizes} className={className}
+      <Image src={src} alt={alt} fill sizes={sizes} quality={90} className={className}
         onError={() => setFailed(true)} />
     );
   }

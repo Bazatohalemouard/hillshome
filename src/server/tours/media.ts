@@ -29,3 +29,16 @@ export async function saveTourImage(form: FormData): Promise<string | null> {
   const key = await storage.save(bytes, check.safeName, check.mime);
   return storage.resolveUrl(key);
 }
+
+/** Extracts the storage key from a resolveUrl() URL, or an empty string for non-uploads. */
+export function storageKeyOf(url: string): string {
+  if (url.startsWith("http")) return url; // Blob key (full URL)
+  const m = url.match(/^\/api\/uploads\/(.+)$/);
+  return m ? decodeURIComponent(m[1]) : "";
+}
+
+/** Best-effort delete of a stored image file (local disk or Blob). Never throws. */
+export async function removeStoredImage(url: string | null | undefined): Promise<void> {
+  if (!url) return;
+  await storage.remove(storageKeyOf(url));
+}

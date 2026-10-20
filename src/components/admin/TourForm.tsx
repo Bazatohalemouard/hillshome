@@ -25,6 +25,7 @@ export function TourForm({ action, method, initial }: { action: string; method: 
   const [msg, setMsg] = useState("");
   const [busy, setBusy] = useState(false);
   const [preview, setPreview] = useState<string | null>(null);
+  const [removed, setRemoved] = useState(false);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -41,9 +42,11 @@ export function TourForm({ action, method, initial }: { action: string; method: 
     const file = e.target.files?.[0];
     if (preview) URL.revokeObjectURL(preview);
     setPreview(file ? URL.createObjectURL(file) : null);
+    if (file) setRemoved(false); // choosing a new file overrides a pending removal
   }
 
-  const shownImage = preview ?? (initial.mainImage || null);
+  // Preview a new file, else the stored image (unless the admin removed it).
+  const shownImage = !removed ? (preview ?? (initial.mainImage || null)) : null;
 
   return (
     <form onSubmit={onSubmit} className="mt-6 max-w-2xl space-y-4 bg-white p-6">
@@ -63,12 +66,28 @@ export function TourForm({ action, method, initial }: { action: string; method: 
         <span className="label">Tour image</span>
         <input id="image" name="image" type="file" accept="image/jpeg,image/png" onChange={onPickImage} className="input" />
         <p className="mt-1 text-xs text-ink/70">JPG or PNG, up to 5 MB. Leave empty to keep the current image.</p>
-        {shownImage && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={shownImage} alt="Tour image preview" className="mt-3 h-40 w-auto rounded border border-navy-900/10 object-cover" />
-        )}
-        {/* Keeps the stored image when no new file is chosen. */}
-        <input type="hidden" name="mainImage" value={initial.mainImage} />
+        {shownImage ? (
+          <div className="mt-3 flex items-start gap-3">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={shownImage} alt="Tour image preview" className="h-40 w-auto rounded border border-navy-900/10 object-cover" />
+            {!preview && (
+              <button type="button" onClick={() => setRemoved(true)}
+                className="rounded border border-red-300 px-2 py-1 text-xs text-red-600 hover:bg-red-50">
+                Remove image
+              </button>
+            )}
+          </div>
+        ) : removed ? (
+          <div className="mt-3 flex items-center gap-3">
+            <p className="text-sm text-ink/70">Image removed — it will be deleted when you save.</p>
+            <button type="button" onClick={() => setRemoved(false)}
+              className="rounded border border-navy-900/20 px-2 py-1 text-xs hover:bg-paper">
+              Undo
+            </button>
+          </div>
+        ) : null}
+        {/* Empty value clears the image on save; otherwise it keeps the stored URL. */}
+        <input type="hidden" name="mainImage" value={removed ? "" : initial.mainImage} />
       </div>
 
       <div>
