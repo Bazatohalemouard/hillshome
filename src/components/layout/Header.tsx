@@ -12,7 +12,7 @@ export const NAV = [
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-40 border-b border-navy-900/10 bg-white/95 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-navy-900/10 bg-white/95 backdrop-blur">
       <div className="container-x flex h-16 items-center justify-between gap-4">
         <Link href="/" className="flex items-center gap-2" aria-label="Hillshome Tours Company LTD — home">
           {/* eslint-disable-next-line @next/next/no-img-element */}
