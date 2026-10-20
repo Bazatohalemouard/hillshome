@@ -85,11 +85,12 @@ export default async function Home() {
           ) : (
             <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {tours.map((t) => (
-                <article key={t.id} className="bg-white p-6">
+                <article key={t.id} className="group bg-white p-6 transition duration-300 hover:-translate-y-1 hover:shadow-lg">
                   {t.mainImage && (
                     <span className="relative mb-4 block aspect-[16/9] w-full overflow-hidden rounded border border-navy-900/10">
                       <TourImage src={t.mainImage} alt={t.name}
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="object-cover transition duration-300 group-hover:scale-105" />
                     </span>
                   )}
                   <h3 className="text-xl font-semibold">{t.name}</h3>
