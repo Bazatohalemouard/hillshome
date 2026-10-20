@@ -5,7 +5,7 @@ const optionalText = (max: number) =>
   text(max).optional().transform((v) => (v ? v : undefined));
 
 export const CATEGORY_SLUGS = [
-  "transport", "construction", "cleaning-maintenance", "it-digital", "multimedia", "tours",
+  "transport", "construction", "cleaning-maintenance", "it-digital", "multimedia", "tours", "mechanics-drivers",
 ] as const;
 export type CategorySlug = (typeof CATEGORY_SLUGS)[number];
 
@@ -61,6 +61,12 @@ export const detailSchemas = {
     deliverables: text(1000).min(1, "List the deliverables you need."),
     description: optionalText(3000),
     budget: optionalText(60),
+  }),
+  "mechanics-drivers": z.object({
+    serviceType: text(120).min(1, "Choose a service."),
+    vehicleDetails: optionalText(200),
+    description: text(3000).min(5, "Describe what you need in a few words."),
+    urgency: z.enum(["LOW", "NORMAL", "HIGH", "URGENT"]),
   }),
 } satisfies Record<CategorySlug, z.ZodTypeAny>;
 

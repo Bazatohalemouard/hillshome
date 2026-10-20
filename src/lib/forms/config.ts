@@ -85,6 +85,19 @@ export const categoryFields: Record<CategorySlug, Field[]> = {
     { name: "description", label: "Project description", type: "textarea" },
     { name: "budget", label: "Budget (optional)", type: "text" },
   ],
+  "mechanics-drivers": [
+    { name: "serviceType", label: "Service needed", type: "select", required: true,
+      options: opts("Vehicle mechanics & repair", "Vehicle servicing & maintenance",
+        "Car hire with driver", "Professional driver services", "Fleet maintenance") },
+    { name: "vehicleDetails", label: "Vehicle (make, model or plate)", type: "text",
+      help: "Optional — helps us prepare, e.g. Toyota RAV4 2018." },
+    { name: "location", label: "Location", type: "text" },
+    { name: "preferredDate", label: "Preferred date", type: "date" },
+    { name: "description", label: "Describe what you need", type: "textarea", required: true },
+    { name: "urgency", label: "Urgency", type: "select", required: true,
+      options: [{ value: "LOW", label: "Low" }, { value: "NORMAL", label: "Normal" },
+        { value: "HIGH", label: "High" }, { value: "URGENT", label: "Urgent" }] },
+  ],
 };
 
 /** Categories where customers may attach photos/documents. */
