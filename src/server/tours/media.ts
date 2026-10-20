@@ -2,13 +2,16 @@ import { HttpError } from "@/lib/auth/rbac";
 import { checkFile } from "@/lib/validation/upload";
 import { storage } from "@/lib/storage";
 
+/** tourSchema boolean fields, which arrive as "true"/"false" strings from FormData. */
+const BOOL_KEYS = new Set(["available", "published", "archived"]);
+
 /** Scalar fields from a tour FormData, skipping the file input and any File values. */
 export function tourFieldsFrom(form: FormData): Record<string, unknown> {
   const out: Record<string, unknown> = {};
   // Later duplicate keys (checkbox over its hidden false) win.
   for (const [k, v] of form.entries()) {
     if (k === "image" || v instanceof File) continue;
-    out[k] = v;
+    out[k] = BOOL_KEYS.has(k) ? v === "true" : v;
   }
   return out;
 }
