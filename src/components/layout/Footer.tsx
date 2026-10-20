@@ -75,7 +75,7 @@ export async function Footer() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/logo.jpeg" alt="Hillshome Tours Company Limited logo" className="h-16 w-16 rounded-full object-cover" />
           <p className="mt-3 font-display text-xl text-white">{str(s["company.name"]) || "Hillshome Tours Company LTD"}</p>
-          <p className="mt-3 max-w-sm">Transport, construction, cleaning and maintenance, IT, multimedia and tours.</p>
+          <p className="mt-3 max-w-sm">Transport, construction, cleaning and maintenance, IT, multimedia, tours and mechanics & drivers.</p>
           <ul className="mt-5 flex items-center gap-4" aria-label="Social media">
             {social.map((l) => (
               <li key={l.url}>

@@ -21,7 +21,7 @@ export default async function Home() {
   ]);
   const s = Object.fromEntries(settings.map((r) => [r.key, r.value])) as Record<string, unknown>;
   const companyName = (s["company.name"] as string) ?? "Hillshome Tours Company LTD";
-  const intro = (s["about.intro"] as string) || "Hillshome Tours Company LTD is a multi-service company offering transport, construction, cleaning and facility maintenance, IT & digital solutions, multimedia and tours.";
+  const intro = (s["about.intro"] as string) || "Hillshome Tours Company LTD is a multi-service company offering transport, construction, cleaning and facility maintenance, IT & digital solutions, multimedia, tours and mechanics & driver services.";
   const whyChoose = Array.isArray(s["home.whyChoose"]) ? (s["home.whyChoose"] as string[]) : [];
   const testimonials = Array.isArray(s["home.testimonials"]) ? (s["home.testimonials"] as Testimonial[]) : [];
   const faq = Array.isArray(s["home.faq"]) ? (s["home.faq"] as Faq[]) : [];

@@ -157,8 +157,8 @@ async function main() {
       { label: "X", url: "https://x.com/JodaLavidkuez" },
       { label: "Instagram", url: "https://www.instagram.com/hillshometoursrw?stkn=MWdxZWFvMzFianBm" },
     ],
-    "about.intro": "Hillshome Tours Company LTD is a multi-service company based in Kigali, Rwanda. We bring transport, construction & building, cleaning & facility maintenance, IT & digital solutions, multimedia, and tours & tourism together under one roof — so our customers deal with one trusted company instead of many different providers.",
-    "about.mission": "To provide reliable, affordable and professional services across transport, construction, maintenance, technology, media and tourism — with clear quotations and honest communication on every request.",
+    "about.intro": "Hillshome Tours Company LTD is a multi-service company based in Kigali, Rwanda. We bring transport, construction & building, cleaning & facility maintenance, IT & digital solutions, multimedia, tours & tourism, and mechanics & driver services together under one roof — so our customers deal with one trusted company instead of many different providers.",
+    "about.mission": "To provide reliable, affordable and professional services across transport, construction, maintenance, technology, media, tourism and vehicle mechanics — with clear quotations and honest communication on every request.",
     "about.vision": "To be Rwanda's most trusted multi-service company — the first name customers think of whenever they need something done well.",
     "about.values": [
       "Reliability — we do what we promise",
@@ -168,7 +168,7 @@ async function main() {
       "Teamwork — one team across all our services",
     ],
     "home.whyChoose": [
-      "Transport, construction, cleaning, IT, multimedia and tours under one company",
+      "Transport, construction, cleaning, IT, multimedia, tours and mechanics & drivers under one company",
       "Clear quotations — nothing is confirmed until you approve it",
       "A request reference and status updates you can follow",
     ],

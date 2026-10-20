@@ -80,7 +80,7 @@ export default function HeroSlideshow({ companyName }: { companyName: string }) 
       <div className="container-x relative z-40">
         <p className="text-sm uppercase tracking-widest text-gold-500">{companyName}</p>
         <h1 className="mt-3 max-w-3xl font-display text-3xl font-semibold text-white drop-shadow-lg sm:text-5xl">
-          Transport • Construction • IT • Multimedia • Cleaning • Tourism
+          Transport • Construction • IT • Multimedia • Cleaning • Tourism • Mechanics & Drivers
         </h1>
         <p className="mt-4 max-w-2xl text-white/90 drop-shadow">
           One company, many services. Tell us what you need and our team will review your request
