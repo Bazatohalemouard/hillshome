@@ -1,10 +1,13 @@
-export const metadata = { title: "Privacy Policy" };
+import type { Metadata } from "next";
+import { PRIVACY_DOC } from "@/lib/legal/documents";
+import { LegalDocumentView } from "@/components/legal/LegalDocumentView";
 
-export default function Page() {
+export const metadata: Metadata = { title: "Privacy Policy" };
+
+export default function PrivacyPage() {
   return (
     <div className="container-x max-w-3xl py-16">
-      <h1 className="text-3xl font-semibold sm:text-4xl">Privacy Policy</h1>
-      <p className="mt-6 rounded bg-gold-100 p-4 text-sm">Placeholder. The company's approved Privacy Policy text must be added here before launch.</p>
+      <LegalDocumentView doc={PRIVACY_DOC} />
     </div>
   );
 }

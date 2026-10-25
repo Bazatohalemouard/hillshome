@@ -1,10 +1,13 @@
-export const metadata = { title: "Terms & Conditions" };
+import type { Metadata } from "next";
+import { TERMS_DOC } from "@/lib/legal/documents";
+import { LegalDocumentView } from "@/components/legal/LegalDocumentView";
 
-export default function Page() {
+export const metadata: Metadata = { title: "Terms & Conditions" };
+
+export default function TermsPage() {
   return (
     <div className="container-x max-w-3xl py-16">
-      <h1 className="text-3xl font-semibold sm:text-4xl">Terms & Conditions</h1>
-      <p className="mt-6 rounded bg-gold-100 p-4 text-sm">Placeholder. The company's approved Terms & Conditions text must be added here before launch.</p>
+      <LegalDocumentView doc={TERMS_DOC} />
     </div>
   );
 }

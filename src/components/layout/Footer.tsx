@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { db } from "@/lib/db";
+import { FooterLegal } from "@/components/layout/FooterLegal";
 
 type SocialLink = { label: string; url: string };
 
@@ -110,7 +111,7 @@ export async function Footer() {
       <div className="border-t border-white/10 py-5">
         <div className="container-x flex flex-wrap justify-between gap-3 text-xs">
           <p>© {new Date().getFullYear()} Hillshome Tours Company LTD</p>
-          <p className="space-x-4"><Link href="/privacy">Privacy Policy</Link><Link href="/terms">Terms &amp; Conditions</Link></p>
+          <FooterLegal />
         </div>
       </div>
     </footer>
