@@ -144,12 +144,12 @@ async function main() {
   const settings: Record<string, unknown> = {
     "company.name": "Hillshome Tours Company LTD",
     "contact.phone": "",
-    "contact.email": "",
+    "contact.email": "hillshometoursltd@gmail.com",
     "contact.address": "Inyarurembo, Kiyovu, Nyarugenge, Kigali, Rwanda",
     "contact.whatsapp": "",
-    "contact.md.email": "siboisaie78@gmail.com",
+    "contact.md.email": "hillshometoursltd@gmail.com",
     "contact.md.phone": "+250788423341",
-    "contact.it.email": "lemouardbazatoha@gmail.com",
+    "contact.it.email": "hillshometoursltd@gmail.com",
     "contact.it.phone": "+250785573698",
     "social.links": [
       { label: "Facebook", url: "https://www.facebook.com/share/1cNDUveQhx/" },

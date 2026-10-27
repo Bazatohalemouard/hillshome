@@ -40,7 +40,7 @@ describe("legal documents", () => {
         .join("\n");
     for (const doc of docs) {
       expect(text(doc)).toContain("+250 788 423 341");
-      expect(text(doc)).toContain("Siboisaie78@gmail.com");
+      expect(text(doc)).toContain("hillshometoursltd@gmail.com");
       expect(text(doc)).toContain("Inyarurembo, Rwanda");
     }
   });

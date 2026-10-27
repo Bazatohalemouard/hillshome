@@ -162,7 +162,7 @@ export const PRIVACY_DOC: LegalDocument = {
         p("Hillshome Tours Company LTD"),
         ul([
           "Telephone: +250 788 423 341",
-          "Email: Siboisaie78@gmail.com",
+          "Email: hillshometoursltd@gmail.com",
           "Address: Inyarurembo, Rwanda",
         ]),
         p("We will make reasonable efforts to respond to privacy enquiries within the period required by applicable law."),
@@ -375,7 +375,7 @@ export const TERMS_DOC: LegalDocument = {
         p("Hillshome Tours Company LTD"),
         ul([
           "Telephone: +250 788 423 341",
-          "Email: Siboisaie78@gmail.com",
+          "Email: hillshometoursltd@gmail.com",
           "Address: Inyarurembo, Rwanda",
         ]),
       ],
