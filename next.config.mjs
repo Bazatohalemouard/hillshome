@@ -19,7 +19,7 @@ const prodOnlyHeaders = process.env.NODE_ENV === "production" ? [
       "img-src 'self' data: blob: https://*.public.blob.vercel-storage.com",
       "frame-src 'self' https://www.youtube.com https://player.vimeo.com",
       "font-src 'self' data:",
-      "connect-src 'self'",
+      "connect-src 'self' https://vitals.vercel-insights.com",
       "form-action 'self'",
       "object-src 'none'",
       "frame-ancestors 'none'",
