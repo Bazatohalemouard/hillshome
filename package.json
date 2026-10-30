@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@prisma/client": "^6.0.0",
+    "@vercel/analytics": "^2.0.1",
     "@vercel/blob": "^2.8.1",
     "argon2": "^0.41.1",
     "jose": "^5.9.6",
